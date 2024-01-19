@@ -2,7 +2,7 @@ import { render } from '@testing-library/react'
 
 import { Error } from 'components/Error'
 
-describe('<Erro />', () => {
+describe('<Error />', () => {
   it('Should render error message', () => {
     const { getByRole, getByText } = render(<Error />)
 
