@@ -1,14 +1,25 @@
-import { api } from 'core/api'
+import { WeatherType } from 'types/index'
 
-import { WeatherResponseType } from './types'
+import { api } from 'core/api'
 
 const apiKey = import.meta.env.VITE_BASE_WEATHER_API_KEY
 
-export const getCurrentWeather = async (
+export const getCurrentWeatherByLocation = async (
   location: string,
-): Promise<WeatherResponseType> => {
-  const response = await api.get<WeatherResponseType>(
+): Promise<WeatherType> => {
+  const response = await api.get<WeatherType>(
     `weather?q=${location}&appid=${apiKey}&units=metric`,
+  )
+
+  return response.data
+}
+
+export const getCurrentWeatherByCoordinates = async (
+  lat: string,
+  lon: string,
+): Promise<WeatherType> => {
+  const response = await api.get<WeatherType>(
+    `weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`,
   )
 
   return response.data
