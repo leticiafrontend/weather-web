@@ -7,7 +7,7 @@ import {
   getCurrentWeatherByLocation,
 } from 'core/requests'
 
-import { WeatherContextData, WeatherProviderProps } from './types'
+import { UnitType, WeatherContextData, WeatherProviderProps } from './types'
 
 const WeatherContext = createContext({} as WeatherContextData)
 
@@ -17,6 +17,20 @@ export const WeatherProvider: React.FC<WeatherProviderProps> = ({
   const [weather, setWeather] = useState<WeatherType | null>(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(false)
+  const [temperatureUnit, setTemperatureUnit] = useState<'metric' | 'imperial'>(
+    'imperial',
+  )
+
+  const handleToggleUnit = () => {
+    setTemperatureUnit(prevUnit =>
+      prevUnit === 'metric' ? 'imperial' : 'metric',
+    )
+
+    searchWeather(
+      weather?.name,
+      temperatureUnit === 'metric' ? 'imperial' : 'metric',
+    )
+  }
 
   const getInitialWeather = async () => {
     setLoading(true)
@@ -27,6 +41,7 @@ export const WeatherProvider: React.FC<WeatherProviderProps> = ({
           const response = await getCurrentWeatherByCoordinates(
             String(coords.latitude),
             String(coords.longitude),
+            temperatureUnit,
           )
 
           setWeather(response)
@@ -38,7 +53,10 @@ export const WeatherProvider: React.FC<WeatherProviderProps> = ({
       },
       async () => {
         try {
-          const response = await getCurrentWeatherByLocation('São Paulo')
+          const response = await getCurrentWeatherByLocation(
+            'São Paulo',
+            temperatureUnit,
+          )
 
           setWeather(response)
         } catch {
@@ -50,11 +68,14 @@ export const WeatherProvider: React.FC<WeatherProviderProps> = ({
     )
   }
 
-  const searchWeather = async (location: string) => {
+  const searchWeather = async (location: string, unit?: UnitType) => {
     setLoading(true)
 
     try {
-      const response = await getCurrentWeatherByLocation(location)
+      const response = await getCurrentWeatherByLocation(
+        location,
+        unit || temperatureUnit,
+      )
 
       setWeather(response)
     } catch {
@@ -66,7 +87,15 @@ export const WeatherProvider: React.FC<WeatherProviderProps> = ({
 
   return (
     <WeatherContext.Provider
-      value={{ getInitialWeather, searchWeather, weather, loading, error }}
+      value={{
+        getInitialWeather,
+        searchWeather,
+        weather,
+        handleToggleUnit,
+        temperatureUnit,
+        loading,
+        error,
+      }}
     >
       {children}
     </WeatherContext.Provider>

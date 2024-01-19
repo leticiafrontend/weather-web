@@ -3,12 +3,16 @@ import { useEffect } from 'react'
 import { Error } from 'components/Error'
 import { Input } from 'components/Input'
 import { Loading } from 'components/Loading'
+import { SwitchTemperatureUnit } from 'components/SwitchTemperatureUnit'
 import { getBackground, getIcon } from 'core/requests'
 import { useWeather } from 'hooks/Weather'
 import { getDate } from 'utils/getDate'
 
 const Home = () => {
-  const { weather, getInitialWeather, loading, error } = useWeather()
+  const { weather, getInitialWeather, loading, error, temperatureUnit } =
+    useWeather()
+
+  const isCelsius = temperatureUnit === 'metric'
 
   useEffect(() => {
     getInitialWeather()
@@ -41,7 +45,8 @@ const Home = () => {
           />
           <div>
             <p className="text-white text-5xl">
-              {Math.round(weather?.main?.temp)}°C
+              {Math.round(weather?.main?.temp)}
+              {isCelsius ? '°C' : '°F'}
             </p>
           </div>
         </div>
@@ -50,19 +55,22 @@ const Home = () => {
           <div className="flex justify-around">
             <div className="text-center">
               <p className="text-white text-2xl">
-                {Math.round(weather?.main?.feels_like)}°C
+                {Math.round(weather?.main?.feels_like)}
+                {isCelsius ? '°C' : '°F'}
               </p>
               <p className="text-white">Feels like</p>
             </div>
             <div className="text-center">
               <p className="text-white text-2xl">
-                {Math.round(weather?.main?.temp_min)}°C
+                {Math.round(weather?.main?.temp_min)}
+                {isCelsius ? '°C' : '°F'}
               </p>
               <p className="text-white">Min</p>
             </div>
             <div className="text-center">
               <p className="text-white text-2xl">
-                {Math.round(weather?.main?.temp_max)}°C
+                {Math.round(weather?.main?.temp_max)}
+                {isCelsius ? '°C' : '°F'}
               </p>
               <p className="text-white">Max</p>
             </div>
@@ -80,6 +88,9 @@ const Home = () => {
               <p className="text-white">Wind speed</p>
             </div>
           </div>
+        </div>
+        <div className="flex justify-center pt-8">
+          <SwitchTemperatureUnit />
         </div>
       </div>
     </div>

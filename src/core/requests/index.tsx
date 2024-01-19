@@ -1,4 +1,4 @@
-import { WeatherType } from 'types/index'
+import { WeatherType, UnitType } from 'types/index'
 
 import { api } from 'core/api'
 
@@ -6,9 +6,10 @@ const apiKey = import.meta.env.VITE_BASE_WEATHER_API_KEY
 
 export const getCurrentWeatherByLocation = async (
   location: string,
+  unit: UnitType,
 ): Promise<WeatherType> => {
   const response = await api.get<WeatherType>(
-    `weather?q=${location}&appid=${apiKey}&units=metric`,
+    `weather?q=${location}&appid=${apiKey}&units=${unit}`,
   )
 
   return response.data
@@ -17,9 +18,10 @@ export const getCurrentWeatherByLocation = async (
 export const getCurrentWeatherByCoordinates = async (
   lat: string,
   lon: string,
+  unit: UnitType,
 ): Promise<WeatherType> => {
   const response = await api.get<WeatherType>(
-    `weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`,
+    `weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=${unit}`,
   )
 
   return response.data
@@ -30,7 +32,7 @@ export const getIcon = (iconName: string) => {
 }
 
 export const getBackground = (location: string) => {
-  const formatedLocation = location.replaceAll(' ', '+')
+  const formattedLocation = location.replaceAll(' ', '+')
 
-  return `https://source.unsplash.com/1600x900/?${formatedLocation}`
+  return `https://source.unsplash.com/1600x900/?${formattedLocation}`
 }
