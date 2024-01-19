@@ -24,6 +24,6 @@
       "utils/*": ["./src/utils/*"],
     }
   },
-  "include": ["src"],
+  "include": ["src", ".jest/jest.setup.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
