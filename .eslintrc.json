@@ -31,7 +31,6 @@
         "pathGroups": [
           { "pattern": "core/**", "group": "internal" },
           { "pattern": "hooks/**", "group": "internal" },
-          { "pattern": "providers/**", "group": "internal" },
           { "pattern": "components/**", "group": "internal" },
           { "pattern": "utils/**", "group": "internal" }
         ],

@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 
 import { Error } from 'components/Error'
+import { Input } from 'components/Input'
 import { Loading } from 'components/Loading'
 import { getBackground, getIcon } from 'core/requests'
 import { useWeather } from 'hooks/Weather'
@@ -24,11 +25,7 @@ const Home = () => {
     >
       <div className="w-full h-full top-0 right-0 absolute bg-black opacity-85"></div>
       <div className="w-full h-full max-h-fit rounded-lg p-8 max-w-96 bg-black shadow z-10 m-4">
-        <input
-          className="w-full rounded-lg p-3"
-          type="text"
-          placeholder="Enter a City"
-        />
+        <Input />
         <h1 className="text-white font-semibold text-4xl py-6">
           {weather?.name}, {weather?.sys?.country}
         </h1>

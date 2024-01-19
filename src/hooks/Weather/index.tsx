@@ -50,9 +50,23 @@ export const WeatherProvider: React.FC<WeatherProviderProps> = ({
     )
   }
 
+  const searchWeather = async (location: string) => {
+    setLoading(true)
+
+    try {
+      const response = await getCurrentWeatherByLocation(location)
+
+      setWeather(response)
+    } catch {
+      setError(true)
+    } finally {
+      setLoading(false)
+    }
+  }
+
   return (
     <WeatherContext.Provider
-      value={{ getInitialWeather, weather, loading, error }}
+      value={{ getInitialWeather, searchWeather, weather, loading, error }}
     >
       {children}
     </WeatherContext.Provider>
