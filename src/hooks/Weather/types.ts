@@ -3,7 +3,7 @@ import { WeatherType } from 'types/index'
 
 export type WeatherContextData = {
   getInitialWeather: () => void
-  weather: WeatherType
+  weather: WeatherType | null
   loading: boolean
   error: boolean
 }

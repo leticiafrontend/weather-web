@@ -28,3 +28,9 @@ export const getCurrentWeatherByCoordinates = async (
 export const getIcon = (iconName: string) => {
   return `https://openweathermap.org/img/wn/${iconName}@4x.png`
 }
+
+export const getBackground = (location: string) => {
+  const formatedLocation = location.replaceAll(' ', '+')
+
+  return `https://source.unsplash.com/1600x900/?${formatedLocation}`
+}
