@@ -27,7 +27,6 @@ const Home = () => {
       className="w-full min-h-screen flex justify-center items-center bg-cover bg-center"
       style={{ backgroundImage: `url(${getBackground(weather.name)})` }}
     >
-      <div className="w-full h-full top-0 right-0 absolute bg-black opacity-85"></div>
       <div className="w-full h-full max-h-fit rounded-lg p-8 max-w-96 bg-black shadow z-10 m-4">
         <Input />
         <h1 className="text-white font-semibold text-4xl py-6">
