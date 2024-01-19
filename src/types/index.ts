@@ -47,3 +47,8 @@ export type WeatherType = {
   name: string
   cod: number
 }
+
+export enum UnitEnum {
+  Metric = 'metric',
+  Imperial = 'imperial',
+}

@@ -1,13 +1,12 @@
-import { WeatherType } from 'types/index'
+import { UnitEnum, WeatherType } from 'types/index'
 
 import { api } from 'core/api'
-import { UnitType } from 'hooks/Weather/types'
 
 const apiKey = import.meta.env.VITE_BASE_WEATHER_API_KEY
 
 export const getCurrentWeatherByLocation = async (
   location: string,
-  unit: UnitType,
+  unit: UnitEnum,
 ): Promise<WeatherType> => {
   const response = await api.get<WeatherType>(
     `weather?q=${location}&appid=${apiKey}&units=${unit}`,
@@ -19,7 +18,7 @@ export const getCurrentWeatherByLocation = async (
 export const getCurrentWeatherByCoordinates = async (
   lat: string,
   lon: string,
-  unit: UnitType,
+  unit: UnitEnum,
 ): Promise<WeatherType> => {
   const response = await api.get<WeatherType>(
     `weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=${unit}`,

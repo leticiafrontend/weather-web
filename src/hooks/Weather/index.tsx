@@ -1,13 +1,13 @@
 import { createContext, useContext, useState } from 'react'
 
-import { WeatherType } from 'types/index'
+import { UnitEnum, WeatherType } from 'types/index'
 
 import {
   getCurrentWeatherByCoordinates,
   getCurrentWeatherByLocation,
 } from 'core/requests'
 
-import { UnitType, WeatherContextData, WeatherProviderProps } from './types'
+import { WeatherContextData, WeatherProviderProps } from './types'
 
 const WeatherContext = createContext({} as WeatherContextData)
 
@@ -17,18 +17,19 @@ export const WeatherProvider: React.FC<WeatherProviderProps> = ({
   const [weather, setWeather] = useState<WeatherType | null>(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(false)
-  const [temperatureUnit, setTemperatureUnit] = useState<'metric' | 'imperial'>(
-    'imperial',
+  const [temperatureUnit, setTemperatureUnit] = useState<UnitEnum>(
+    UnitEnum.Imperial,
   )
 
   const handleToggleUnit = () => {
     setTemperatureUnit(prevUnit =>
-      prevUnit === 'metric' ? 'imperial' : 'metric',
+      prevUnit === UnitEnum.Metric ? UnitEnum.Imperial : UnitEnum.Metric,
     )
 
     searchWeather(
+      // @ts-expect-error expect-error
       weather?.name,
-      temperatureUnit === 'metric' ? 'imperial' : 'metric',
+      temperatureUnit === UnitEnum.Metric ? UnitEnum.Imperial : UnitEnum.Metric,
     )
   }
 
@@ -68,7 +69,7 @@ export const WeatherProvider: React.FC<WeatherProviderProps> = ({
     )
   }
 
-  const searchWeather = async (location: string, unit?: UnitType) => {
+  const searchWeather = async (location: string, unit?: UnitEnum) => {
     setLoading(true)
 
     try {

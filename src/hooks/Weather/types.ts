@@ -14,7 +14,3 @@ export type WeatherContextData = {
 export type WeatherProviderProps = {
   children: ReactNode
 }
-
-export type UnitType = {
-  unit: 'metric' | 'imperial'
-}
