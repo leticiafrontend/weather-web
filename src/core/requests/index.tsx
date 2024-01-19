@@ -1,6 +1,7 @@
-import { WeatherType, UnitType } from 'types/index'
+import { WeatherType } from 'types/index'
 
 import { api } from 'core/api'
+import { UnitType } from 'hooks/Weather/types'
 
 const apiKey = import.meta.env.VITE_BASE_WEATHER_API_KEY
 
